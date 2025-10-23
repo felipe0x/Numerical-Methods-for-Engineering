@@ -2,44 +2,53 @@ import matplotlib.pyplot as plt
 import numpy as np
 import functions as func
 
-img_orig = plt.imread('imagem.jpeg')
+# img_orig = plt.imread('imagem.jpeg')
 
 # plt.imshow(img_orig)
 # plt.title('Imagem original')
 # plt.show()
 
-img = plt.imread('imagem540.jpeg')
-img_gray = func.rgb2gray(img)
+# img = plt.imread('imagem540.jpeg')
+# img_gray = func.rgb2gray(img)
 
 # plt.imshow(img)
 # plt.title('Imagem cortada')
 # plt.show()
 
 # plt.imshow(img_gray, cmap='gray')
-# plt.title('Imagem em tons de cinza sem ruído)
+# plt.title('Imagem em tons de cinza sem ruído')
 # plt.show()
 
-t = img_gray.shape
-imgruido = img_gray + np.random.rand(t[0], t[1])
+# t = img_gray.shape
+# imgruido = img_gray + np.random.rand(t[0], t[1])
 
 # plt.imshow(imgruido, cmap='gray')
-# plt.title('Imagem com ruído)
+# plt.title('Imagem com ruído')
 # plt.show()
 
 # L, U = func.LUGauss(imgruido)
 # plt.imshow(np.uint8(L), cmap="gray")
+# plt.title('Matriz L')
 # plt.show()
 
 # plt.imshow(np.uint8(U), cmap="gray")
+# plt.title('Matriz U')
 # plt.show()
 
 # A = L @ U
-# print (A.shape, img.shape)
+# v_erro = imgruido - A
+# erro = np.linalg.norm(v_erro, 'fro')
+
+# print(f"Erro entre as duas imagens pela norma de Frobenius: {erro:.7}")
+
+# print(A.shape, img.shape)
 # plt.imshow(np.uint8(A), cmap="gray")
+# plt.title('Imagem Reconstruída')
 # plt.show()
 
-b = np.array([1784, 1781, 1060, 1793, 1766, 1714, 1695, 1763,
-              1713, 1149, 1246, 1096])
+
+b = np.array([1784, 1781, 1060, 1793, 1766, 1714, 
+              1695, 1763, 1713, 1149, 1246, 1096])
 
 C = np.array([
     [10, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
@@ -60,7 +69,7 @@ l = C.shape[0]
 x0 = np.zeros(l)
 
 s1 = func.GaussSeidel(C, b, x0, 10, 0.01)
-s2 = func.Jacobi(C, b, x0, 10, 0.01)
+s2 = func.Jacobi(C, b, x0, 100, 0.01)
 
 print(s1)
 print(s2)
@@ -68,5 +77,4 @@ print(s2)
 s1 = [chr(int(np.round(v))) for v in s1]
 s2 = [chr(int(np.round(v))) for v in s2]
 
-print(s1)
-print(s2)
+print(f"Mensagem decifrada por Jacobi: {s1}\nMensagem decifrada por Gauss-Seidel: {s2}")

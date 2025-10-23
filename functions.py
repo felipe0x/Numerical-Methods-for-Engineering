@@ -6,7 +6,7 @@ def rgb2gray(rgb):
     return((rgb[:, :, 0] + rgb[:, :, 1] + rgb[:, :, 2]) * 1/3)
 
 def LUGauss(A):
-    l, c = A.shape
+    l = A.shape[0]
     L = np.eye(l)
     Amod = np.copy(A)
 
@@ -106,7 +106,7 @@ def Jacobi(A, b, x0, N, T):
         print(f"Iteração {k}: Solução: {xk1}, Erro:{erro:.4f}")
 
         if erro < T:
-            print("\n Erro atingido pela tolerância.")
+            print(f"\n Erro menor que a tolerância {T} depois da iteração: {k}")
             break
     
     if k == N and erro >= T:
@@ -149,7 +149,7 @@ def GaussSeidel(A, b, x0, N, T):
         print(f"Iteração {k}: Solução: {xk1}, Erro:{erro:.4f}\n")
 
         if erro < T:
-            print("Erro menor que a tolerância.\n")
+            print(f"Erro menor que a tolerância {T} depois da iteração: {k}")
             break
     
     if k == N and erro >= T:
